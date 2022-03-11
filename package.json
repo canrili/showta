@@ -2,7 +2,9 @@
   "name": "showta",
   "private": true,
   "version": "0.0.0",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.js",
   "exports": {
@@ -32,6 +34,7 @@
     "unplugin-auto-import": "^0.6.1",
     "unplugin-vue-components": "^0.17.21",
     "vite": "^2.8.0",
+    "vite-dts": "^1.0.4",
     "vue-tsc": "^0.29.8"
   }
 }
