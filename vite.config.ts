@@ -2,7 +2,6 @@ import path from 'path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import Unocss from 'unocss/vite'
-import dts from 'vite-dts'
 
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
@@ -14,7 +13,6 @@ export default defineConfig({
   plugins: [
     vue(),
     Unocss(),
-    dts(),
     AutoImport({
       imports: [
         'vue',
