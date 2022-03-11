@@ -1,0 +1,4 @@
+{
+    "extends": "@antfu",
+    "vue/component-definition-name-casing": [2, "kebab-case"]
+  }
