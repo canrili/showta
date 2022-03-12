@@ -4,7 +4,7 @@ import type { App } from 'vue'
 import StIcon from './StIcon.vue'
 
 StIcon.install = (app: App) => {
-  app.component('st-icon', StIcon)
+  app.component('StIcon', StIcon)
 }
 
 export default StIcon

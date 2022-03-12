@@ -2,5 +2,8 @@
 </script>
 
 <template>
-  <StIcon name="menu" box />
+  <StIcon name="menu" />
 </template>
+<style lang="scss">
+@import '~/styles/index.scss';
+</style>
