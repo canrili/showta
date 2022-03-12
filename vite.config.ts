@@ -7,8 +7,17 @@ import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 
 export default defineConfig({
-  alias: {
-    '~/': `${path.resolve(__dirname, 'src')}/`,
+  resolve: {
+    alias: {
+      '~/': `${path.resolve(__dirname, 'src')}/`,
+    }
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "~/style/theme.scss";`
+      }
+    }
   },
   plugins: [
     vue(),
@@ -36,6 +45,9 @@ export default defineConfig({
           }
         }
       }
+    },
+    server: {
+      open: true
     }
 
 })

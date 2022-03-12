@@ -2,5 +2,5 @@
 </script>
 
 <template>
-  <StIcon name="account_circle" box />
+  <StIcon name="menu" box />
 </template>

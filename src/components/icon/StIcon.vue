@@ -9,25 +9,19 @@ interface Prop{
 
 withDefaults(defineProps<Prop>(), {
   name: '',
-  color: '#000',
+  color: '#44476a',
   box: false,
   boxColor: 'transparent',
 })
 </script>
 <template>
-  <i class="material-icons st-icon" :class="[box ? 'st-icon-box' : '']" :style="{color, 'background-color': box ? boxColor : ''}">
+  <i class="material-icons st-icon" :class="[box ? 'st-icon-box shadow-soft' : '']" :style="{color, 'background-color': box ? boxColor : ''}">
     <slot>
       {{ name ? name : '' }}
     </slot>
   </i>
 </template>
-<style scoped lang="stylus">
+<style scoped lang="scss">
 @import 'material-design-icons/iconfont/material-icons.css';
-.st-icon
-  font-size: 20px;
-  user-select: none;
-  &-box
-    border-radius: 5px;
-    padding: 8px;
-
+@import './StIcon.scss';
 </style>
