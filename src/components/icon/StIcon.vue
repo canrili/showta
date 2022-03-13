@@ -1,19 +1,17 @@
 <script setup lang="ts">
 
-interface Prop{
+const props = withDefaults(defineProps<{
   name: string
   color?: string
-}
-
-withDefaults(defineProps<Prop>(), {
+}>(), {
   name: '',
   color: '#44476a',
 })
 </script>
 <template>
-  <i class="material-icons st-icon" :style="{color}">
+  <i class="material-icons st-icon" :style="{'color': props.color}">
     <slot>
-      {{ name ? name : '' }}
+      {{ props.name ? props.name : '' }}
     </slot>
   </i>
 </template>
