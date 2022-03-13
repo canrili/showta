@@ -17,9 +17,12 @@ const props = withDefaults(defineProps<{
 
 const attrs = useAttrs()
 
+// 是正在中文拼音输入标识
 const isComposing = ref<boolean>(false)
-const emit = defineEmits(['update:modelValue'])
 
+const emit = defineEmits(['update:modelValue', 'blur'])
+
+// input
 const updateValue = (e: Event) => {
   // 中文拼音正在输入中，直接return
   if (isComposing.value)
@@ -28,14 +31,19 @@ const updateValue = (e: Event) => {
   const value = (e.target as HTMLInputElement).value
   emit('update:modelValue', value)
 }
+// 中文拼音开始输入
 const compositionstart = (e: Event) => {
   isComposing.value = true
 }
+// 中文拼音输入结束
 const compositionend = (e: Event) => {
   isComposing.value = false
   updateValue(e)
 }
-
+// 失去焦点
+const onBlur = (e: Event) => {
+  emit('blur', e)
+}
 </script>
 <template>
   <div class="st-input">
@@ -51,6 +59,7 @@ const compositionend = (e: Event) => {
       @compositionstart="compositionstart"
       @input="updateValue"
       @compositionend="compositionend"
+      @blur="blur"
     >
     <div v-if="!!props.suffixIcon" class="st-input__prefix rounded-l-none">
       <StIcon :name="props.suffixIcon" />
