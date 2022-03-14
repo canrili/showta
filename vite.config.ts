@@ -19,15 +19,16 @@ export default defineConfig({
       imports: [
         'vue',
       ],
-      dts: true,
+      dts: './src/auto-imports.d.ts',
     }),
     Components({
-      dts: true,
+      dts: './src/components.d.ts',
     })],
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/components/icon/index.ts'),
       name: 'show-ta',
+      formats: ['es'],
       fileName: format => `index.${format}.js`,
     },
     rollupOptions: {
