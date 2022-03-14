@@ -28,7 +28,6 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, 'src/components/icon/index.ts'),
       name: 'show-ta',
-      formats: ['es'],
       fileName: format => `index.${format}.js`,
     },
     rollupOptions: {

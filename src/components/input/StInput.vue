@@ -21,7 +21,7 @@ const attrs = useAttrs()
 // 是正在中文拼音输入标识
 const isComposing = ref<boolean>(false)
 
-const emit = defineEmits(['update:modelValue', 'blur'])
+const emit = defineEmits(['update:modelValue'])
 
 // input
 const updateValue = (e: Event) => {
@@ -33,17 +33,13 @@ const updateValue = (e: Event) => {
   emit('update:modelValue', value)
 }
 // 中文拼音开始输入
-const compositionstart = (e: Event) => {
+const handleCompositionstart = (e: Event) => {
   isComposing.value = true
 }
 // 中文拼音输入结束
-const compositionend = (e: Event) => {
+const handleCompositionend = (e: Event) => {
   isComposing.value = false
   updateValue(e)
-}
-// 失去焦点
-const onBlur = (e: Event) => {
-  emit('blur', e)
 }
 </script>
 <template>
@@ -57,10 +53,9 @@ const onBlur = (e: Event) => {
       v-bind="attrs"
       :class="{'rounded-l-none': !!props.prefixIcon, 'rounded-r-none': !!props.suffixIcon}"
       :value="props.modelValue"
-      @compositionstart="compositionstart"
+      @compositionstart="handleCompositionstart"
       @input="updateValue"
-      @compositionend="compositionend"
-      @blur="blur"
+      @compositionend="handleCompositionend"
     >
     <div v-if="!!props.suffixIcon" class="st-input__prefix rounded-l-none">
       <StIcon :name="props.suffixIcon" />
