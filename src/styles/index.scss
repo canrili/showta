@@ -26,7 +26,7 @@ button, input, optgroup, select, textarea {
 button, input {
     overflow: visible;
 }
-input {
+input, textarea {
     outline: 0;
 }
 @import '~/styles/variables.scss';

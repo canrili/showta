@@ -41,9 +41,10 @@ const handleCompositionend = (e: Event) => {
   isComposing.value = false
   updateValue(e)
 }
+
 </script>
 <template>
-  <div class="st-input">
+  <div v-if="type === 'text'" class="st-input">
     <div v-if="!!props.prefixIcon" class="st-input__prefix rounded-r-none">
       <StIcon :name="props.prefixIcon" />
     </div>
@@ -60,5 +61,13 @@ const handleCompositionend = (e: Event) => {
     <div v-if="!!props.suffixIcon" class="st-input__prefix rounded-l-none">
       <StIcon :name="props.suffixIcon" />
     </div>
+  </div>
+  <div v-else-if="type ==='textarea'" class="st-input">
+    <textarea
+      class="st-input__inner st-input__textarea__inner" v-bind="attrs" :defaultValue="props.modelValue"
+      @compositionstart="handleCompositionstart"
+      @input="updateValue"
+      @compositionend="handleCompositionend"
+    />
   </div>
 </template>
