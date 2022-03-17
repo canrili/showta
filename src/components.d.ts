@@ -6,6 +6,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     StIcon: typeof import('./components/icon/StIcon.vue')['default']
     StInput: typeof import('./components/input/StInput.vue')['default']
+    StInputNumber: typeof import('./components/input-number/StInputNumber.vue')['default']
   }
 }
 

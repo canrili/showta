@@ -26,6 +26,14 @@ button, input, optgroup, select, textarea {
 button, input {
     overflow: visible;
 }
+input[type=number] {
+    -moz-appearance: textfield;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 input, textarea {
     outline: 0;
 }
@@ -33,3 +41,4 @@ input, textarea {
 @import 'material-design-icons/iconfont/material-icons.css';
 @import '~/components/icon/StIcon.scss';
 @import '~/components/input/StInput.scss';
+@import '~/components/input-number/StInputNumber.scss';

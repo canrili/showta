@@ -2,7 +2,7 @@
   "editor.accessibilitySupport": "off",
   "editor.cursorSmoothCaretAnimation": true,
   "editor.find.addExtraSpaceOnTop": false,
-  "editor.fontFamily": "Roboto Serif, Monaco,  Input Mono, Fira Code, monospace",
+  "editor.fontFamily": "Jetbrains Mono,  Input Mono, Fira Code, monospace",
   "editor.fontLigatures": "'ss01', 'ss02', 'ss03', 'ss06', 'zero'",
   "editor.fontSize": 14,
   "editor.glyphMargin": true,
