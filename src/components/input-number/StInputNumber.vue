@@ -10,54 +10,34 @@ const props = withDefaults(defineProps<{
 }>(), {
   precision: '',
 })
-const inputValue = ref<string | number>('')
-const attrs = useAttrs()
+// 正确的精度
+const correctPrecision = ref<number>(0)
+const inputValue = ref<string>('')
+const formatPrecision = () => {
+  const precision = props.precision
+  if (typeof precision === 'number' && precision > 0) {
+    correctPrecision.value = Math.floor(precision)
+  }
+  else if (typeof precision === 'string') {
+    const match = precision.match(/^\d+$/)
+    if (match) {
+      const temp = Number(match[0])
+      temp > 0 && (correctPrecision.value = Math.floor(temp))
+    }
+  }
+}
 
 const emit = defineEmits(['update:modelValue'])
-
-const updateValue = (e: Event) => {
-  const value = (e.target as HTMLInputElement).value
-  return (inputValue.value = value)
-}
-const handleInputChange = (e: Event) => {
-  const value = (e.target as HTMLInputElement).value
-  console.log(inputValue.value)
-  emit('update:modelValue', inputValue.value)
-  inputValue.value = ''
-}
-const getPrecision = (precision: string | number): number => {
-  let temp = 0
-  if (!precision)
-    return temp
-
-  const isString = typeof precision === 'string'
-  if (isString)
-    temp = Number(precision)
-
-  else
-    temp = precision
-
-  return Number(temp.toFixed())
-}
-
-const getModelValue = (value: string | number) => {
-  const isString = typeof value === 'string'
-  if (isString)
-    return Number(value)
-
-  else
-    return value
-}
 watchEffect(() => {
-  const precision = getPrecision(props.precision)
-  if (precision)
-    inputValue.value = Number(getModelValue(props.modelValue).toFixed(precision))
-  else
-    inputValue.value = getModelValue(props.modelValue)
+  formatPrecision()
+  if (correctPrecision.value) {
+    const tempModelValue: number = typeof props.modelValue === 'number' ? props.modelValue : Number(props.modelValue)
+    inputValue.value = tempModelValue.toFixed(correctPrecision.value)
+  }
+  else { inputValue.value = props.modelValue.toString() }
+  emit('update:modelValue', inputValue.value)
 })
 </script>
 <template>
-  <div class="st-input">
-    <input type="number" class="st-input__inner" v-bind="attrs" :value="modelValue" @input="updateValue" @change="handleInputChange">
-  </div>
+  <StInput v-model="inputValue" type="text" />
 </template>

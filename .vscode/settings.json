@@ -1,4 +1,7 @@
 {
+  "fileNestingUpdater.autoUpdate": true,
+  "fileNestingUpdater.autoUpdateInterval": 720,
+  "fileNestingUpdater.promptOnAutoUpdate": true,
   "editor.accessibilitySupport": "off",
   "editor.cursorSmoothCaretAnimation": true,
   "editor.find.addExtraSpaceOnTop": false,
@@ -26,7 +29,7 @@
   "window.nativeTabs": true, // this is great, macOS only
   "window.titleBarStyle": "custom",
   "workbench.activityBar.visible": true,
-  "workbench.colorTheme": "Vitesse Dark",
+  "workbench.colorTheme": "Vitesse Light",
   "workbench.editor.closeOnFileDelete": true,
   "workbench.editor.highlightModifiedTabs": true,
   "workbench.editor.tabCloseButton": "left",
