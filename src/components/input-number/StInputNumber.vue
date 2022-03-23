@@ -30,6 +30,7 @@ const formatPrecision = () => {
 const emit = defineEmits(['update:modelValue'])
 watchEffect(() => {
   formatPrecision()
+  console.log(correctPrecision.value)
   if (correctPrecision.value) {
     const tempModelValue: number = typeof props.modelValue === 'number' ? props.modelValue : Number(props.modelValue)
     inputValue.value = tempModelValue.toFixed(correctPrecision.value)
