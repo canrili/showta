@@ -12,7 +12,32 @@ const props = withDefaults(defineProps<{
 })
 // 正确的精度
 const correctPrecision = ref<number>(0)
-const inputValue = ref<string>('')
+const data = reactive<{
+  inputValue: number | string
+  userInput: number | string | null
+}>({
+  inputValue: props.modelValue,
+  userInput: null,
+})
+
+const displayValue = computed(() => {
+  const { inputValue, userInput } = data
+  if (userInput !== null)
+    return userInput
+
+  let currentValue: number | string = inputValue
+
+  if (typeof currentValue === 'number') {
+    if (Number.isNaN(currentValue))
+      return ''
+
+    if (correctPrecision.value)
+      currentValue = currentValue.toFixed(correctPrecision.value)
+  }
+
+  return currentValue
+})
+
 const formatPrecision = () => {
   const precision = props.precision
   if (typeof precision === 'number' && precision > 0) {
@@ -28,16 +53,8 @@ const formatPrecision = () => {
 }
 
 const emit = defineEmits(['update:modelValue'])
-watchEffect(() => {
-  formatPrecision()
-  if (correctPrecision.value) {
-    const tempModelValue: number = typeof props.modelValue === 'number' ? props.modelValue : Number(props.modelValue)
-    inputValue.value = tempModelValue.toFixed(correctPrecision.value)
-  }
-  else { inputValue.value = props.modelValue.toString() }
-  emit('update:modelValue', inputValue.value)
-})
+
 </script>
 <template>
-  <StInput v-model="inputValue" type="text" />
+  <StInput :model-value="displayValue" type="text" />
 </template>
