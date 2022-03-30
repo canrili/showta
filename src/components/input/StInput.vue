@@ -6,7 +6,7 @@ export default {
 <script setup lang="ts">
 
 const props = withDefaults(defineProps<{
-  type: string
+  type?: string
   prefixIcon?: string
   suffixIcon?: string
   modelValue: string | number
@@ -44,7 +44,7 @@ const handleCompositionend = (e: Event) => {
 
 </script>
 <template>
-  <div v-if="type === 'text'" class="st-input">
+  <div v-if="type === 'text'" class="st-input" :class="{'st-input-disabled': ('disabled' in attrs)}">
     <div v-if="!!props.prefixIcon" class="st-input__prefix rounded-r-none">
       <StIcon :name="props.prefixIcon" />
     </div>

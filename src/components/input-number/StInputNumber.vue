@@ -5,13 +5,14 @@ export default {
 </script>
 <script setup lang="ts">
 const props = withDefaults(defineProps<{
-  precision?: string |number
+  precision?: string | number
   modelValue: string | number
 }>(), {
   precision: '',
 })
-// 正确的精度
-const correctPrecision = ref<number>(0)
+
+const attrs = useAttrs()
+
 const data = reactive<{
   inputValue: number | string
   userInput: number | string | null
@@ -30,7 +31,6 @@ const displayValue = computed(() => {
   if (typeof currentValue === 'number') {
     if (Number.isNaN(currentValue))
       return ''
-
     if (correctPrecision.value)
       currentValue = currentValue.toFixed(correctPrecision.value)
   }
@@ -38,23 +38,46 @@ const displayValue = computed(() => {
   return currentValue
 })
 
-const formatPrecision = () => {
-  const precision = props.precision
-  if (typeof precision === 'number' && precision > 0) {
-    correctPrecision.value = Math.floor(precision)
-  }
-  else if (typeof precision === 'string') {
-    const match = precision.match(/^\d+$/)
-    if (match) {
-      const temp = Number(match[0])
-      temp > 0 && (correctPrecision.value = Math.floor(temp))
-    }
-  }
+const setCurrentValue = (value: number | string) => {
+  const oldValue = data.inputValue
+
+  if (value === oldValue)
+    return
+
+  const newValue = Number(value).toFixed(correctPrecision.value)
+  data.userInput = null
+  emit('update:modelValue', newValue)
+  emit('input', newValue)
+  emit('change', newValue, data.inputValue)
+  data.inputValue = newValue
 }
 
-const emit = defineEmits(['update:modelValue'])
+const updateValue = (e: Event) => {
+  const value = (e.target as HTMLInputElement).value
+  data.userInput = value
+}
+
+const correctPrecision = computed(() => {
+  const { precision } = props
+  if (typeof precision === 'number')
+    return Math.floor(precision)
+  else if (typeof precision === 'string')
+    return parseInt(precision)
+  else return 0
+})
+
+const inputChange = (e: Event) => {
+  const value = (e.target as HTMLInputElement).value
+  const newValue = value !== '' ? Number(value) : ''
+  if (!Number.isNaN(newValue) && newValue !== '')
+    setCurrentValue(newValue)
+
+  data.userInput = null
+}
+
+const emit = defineEmits(['update:modelValue', 'input', 'change'])
 
 </script>
 <template>
-  <StInput :model-value="displayValue" type="text" />
+  <StInput :model-value="displayValue" type="text" v-bind="attrs" @input="updateValue" @change="inputChange" />
 </template>
