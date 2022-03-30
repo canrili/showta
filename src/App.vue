@@ -5,7 +5,7 @@ const email = ref<number>(11.32323)
 <template>
   {{ email }}
   <div class="w-80 mx-auto mt-20">
-    <StInputNumber v-model="email" readonly />
+    <stInputNumber v-model="email" readonly />
   </div>
 </template>
 <style lang="scss">
